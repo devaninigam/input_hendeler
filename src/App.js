@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import "./App.css"
+import Validation from './Validation';
 
 function App() {
   const [data, setData] = useState({
@@ -15,25 +16,31 @@ function App() {
       { ...data, [e.target.name]: e.target.value }
     )
     // console.log(e.target.name, ":", e.target.value);
+    parseInt(data.Phone)
   }
-  const { Uname, Phone, Email, Cors, Age } = data
+  const [valida, setValida] = useState({});
+
   const onclick = () => {
-    setSudent(
-      [...sudent, { Uname, Phone, Email, Cors, Age }]
-    )
-    console.log(sudent);
-    setData({ Uname: "", Phone: "", Email: "", Cors: "", Age: "" })
+    setValida(Validation(data))
+
+    // setSudent(
+    //   [...sudent, { ...data }]
+    // )
+    // setData({Uname:"" , Phone:"" , Email:"" , Cors:"" , Age:""  })
   }
 
   return (
     <div className='App'>
       <h1>Sudent Data List</h1>
       <div className='row'>
-        <input type='text' placeholder='Sudent Name' name='Uname' onInput={oninput} />
-        <input type='text' placeholder='Phone' name='Phone' onInput={oninput} />
-        <input type='text' placeholder='Email' name='Email' onInput={oninput} />
-        <input type='text' placeholder='Age' name='Age' onInput={oninput} />
-        <input type='text' placeholder='Cors' name='Cors' onInput={oninput} />
+        <input value={data.Uname} type='text' placeholder='Sudent Name' name='Uname' onInput={oninput} />
+        {valida.Uname && <label style={{color:"red"}}>{valida.Uname}</label>}
+        <input value={data.Phone} type='text' placeholder='Phone' name='Phone' onInput={oninput} />
+        {valida.Phone && <label style={{color:"red"}}>{valida.Phone}</label>}
+        {valida.Phone && <label style={{color:"red"}}>{valida.Phone}</label>}
+        <input value={data.Email} type='text' placeholder='Email' name='Email' onInput={oninput} />
+        <input value={data.Age} type='text' placeholder='Age' name='Age' onInput={oninput} />
+        <input value={data.Cors} type='text' placeholder='Cors' name='Cors' onInput={oninput} />
         <button onClick={onclick}>Click me</button>
       </div>
       <center>
